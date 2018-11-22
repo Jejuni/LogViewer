@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+@mixin collapsible-container-theme($theme) {
+    $primary: map-get($theme, primary);
+    .header-container {
+        background-color: mat-color($primary);
+    }
+}
+
+@mixin collapsible-container-typography($config) {
+    .header-container {
+        @include mat-typography-level-to-styles($config, title);
+    }
+}

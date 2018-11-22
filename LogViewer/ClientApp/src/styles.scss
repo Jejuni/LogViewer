@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* font specific section */
+
+.bold-font {
+    font-weight: bold;
+}
+
+.italic-font {
+    font-style: italic;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.transparent-background {
+    background-color: rgba(241,241,241, .2);
+}
+
+// #region Mat Panel Overrides
+div .override-wider-mat-select-panel {
+    max-width: none;
+}
+
+div .override-max-height-mat-select-panel {
+    max-height: none;
+}
+// #endregion
+
+// #region Mat "Hacky" Overrides
+// Makes select panels auto-size to the selected content instead of defaulting to 180px
+.override-auto-sizing-form-field .mat-form-field-infix {
+    width: auto; // default 180px;
+    min-width: 175px; // new value
+}
+
+.override-auto-sizing-form-field .mat-form-field-infix .mat-select-value {
+    max-width: none; // default 0
+    padding-right: 5px; // new value
+}
+// #endregion

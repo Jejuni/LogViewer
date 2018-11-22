@@ -1,0 +1,49 @@
+<div class="filter-main-container">
+    <div class="filter-inner-container">
+        <mat-form-field class="override-auto-sizing-form-field">
+            <!-- DropBox for appName selection -->
+            <mat-select (selectionChange)="onAppNameSelectionChanged($event.value)" placeholder="App Name" [panelClass]="'override-wider-mat-select-panel'">
+                <mat-option>No Filter</mat-option>
+                <mat-option *ngFor="let app of availableApps$ | async" [value]="app.id">{{app.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="filter-inner-container">
+        <mat-form-field class="override-auto-sizing-form-field">
+            <!-- DropBox for logLevel multi selection-->
+            <mat-select (selectionChange)="onLogLevelSelectionChanged($event.value)" placeholder="Log Levels" multiple
+                [(ngModel)]="currentLogFilters.logLevels" [panelClass]="'override-max-height-mat-select-panel'">
+                <mat-select-trigger>
+                    <span *ngFor="let selectedLevel of currentLogFilters.logLevels; let i = index">
+                        {{selectedLevel}}<ng-container *ngIf="i < currentLogFilters.logLevels.length - 1">, </ng-container>
+                    </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let logLevel of logStyleRetriever.allLogLevels" [value]="logLevel">
+                    <div class="icon-loglevel-container">
+                        <mat-icon [ngStyle]="logStyleRetriever.getStyleForLogLevel(logLevel).style">{{logStyleRetriever.getStyleForLogLevel(logLevel).iconName}}</mat-icon>
+                        <span>{{logLevel}}</span>
+                    </div>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="filter-inner-container">
+        <mat-form-field>
+            <input matInput [matDatepicker]="pickerStart" placeholder="Start date" (dateInput)="onEntryStartDateChanged($event.value)"
+                [max]="currentLogFilters.endDate" [value]="currentLogFilters.startDate">
+            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="filter-inner-container">
+        <mat-form-field>
+            <input matInput [matDatepicker]="pickerEnd" placeholder="End date" (dateInput)="onEntryEndDateChanged($event.value)"
+                [min]="currentLogFilters.startDate" [value]="currentLogFilters.endDate">
+            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+    </div>
+</div>
+
+<app-filter-text-box (filterChange)="onMessageFilterChanged($event)"></app-filter-text-box>

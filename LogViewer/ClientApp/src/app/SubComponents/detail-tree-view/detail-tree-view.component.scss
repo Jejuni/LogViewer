@@ -1,0 +1,33 @@
+.tree-node-invisible {
+    display: none;
+}
+
+.main-tree {
+    background-color: inherit;
+}
+
+.main-tree ul,
+.main-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+.smaller-button {
+    height: 30px;
+    line-height: 30px;
+}
+
+// Overwrite of default 48 px to have a smaller overall tree
+.mat-tree-node {
+    min-height: 30px;
+}
+
+.list-entry-data-display-container {
+    display: flex;
+}
+
+.list-entry-data-display-name {
+    width: 120px;
+    min-width: 120px;
+}

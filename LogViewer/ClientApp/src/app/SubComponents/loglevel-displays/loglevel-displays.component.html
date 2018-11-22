@@ -1,0 +1,14 @@
+<div class="loglevel-display-main-container">
+  <div *ngFor="let logLevel of logStyleRetriever.allLogLevels" class="log-level-info-box-container">
+    <div class="log-level-box-header" [ngStyle]="logStyleRetriever.getStyleForLogLevel(logLevel).bgStyle">
+      <div class="round-emblem">
+        <mat-icon>{{logStyleRetriever.getStyleForLogLevel(logLevel).iconName}}</mat-icon>
+      </div>
+      <div>{{logLevel}}</div>
+    </div>
+    <div class="log-level-box-body">
+      <span class="text-container text-top"><span class="pre-text">Amount:</span>{{logStats[logLevel].amount}}</span>
+      <span class="text-container text-bottom"><span class="pre-text">Exceptions:</span>{{logStats[logLevel].exceptions}}</span>
+    </div>
+  </div>
+</div>

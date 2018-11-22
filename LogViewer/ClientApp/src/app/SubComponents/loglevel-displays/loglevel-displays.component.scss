@@ -1,0 +1,62 @@
+.loglevel-display-main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+.log-level-info-box-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    border: .5px solid #dbdbdb;
+    border-radius: 5px;
+    min-width: 140px;
+    max-width: 12.5%;
+}
+
+.round-emblem {
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 7px;
+}
+
+.log-level-box-header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.log-level-box-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 15px;
+    font-weight: 500;
+}
+
+.text-container {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+.text-top {
+    padding: 0 7px 7px 7px;
+}
+
+.text-bottom {
+    padding: 0 7px 0 7px;
+}
+
+.pre-text {
+    padding-right: 10px;
+}

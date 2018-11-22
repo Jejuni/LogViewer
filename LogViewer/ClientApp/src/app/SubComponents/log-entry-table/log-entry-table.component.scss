@@ -1,0 +1,102 @@
+/* #region Table and Table Containers */
+table {
+    width: 100%;
+}
+
+.table-main-container {
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.table-container {
+    position: relative;
+    overflow: auto;
+}
+
+.height-locked-table {
+    height: 900px;
+    max-height: 900px;
+}
+/* #endregion */
+
+/* #region Loading overlays */
+.table-loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* #endregion */
+
+
+// #region Table Rows
+// Extra padding if there is so much text in there it would otherwise get squished
+.main-view-row {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.entry-detail-container {
+    overflow: hidden;
+    display: flex;
+}
+
+tr.table-detail-row {
+    height: 0;
+    //background-color: rgb(252, 252, 252);
+}
+// #endregion
+
+// #region Images
+.log-level-image-container {
+    display: flex;
+    align-items: center;
+}
+
+.log-level-image {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5em;
+}
+
+.icon-loglevel-container {
+    display: flex;
+    align-items: center;
+}
+
+.log-level-icon {
+    padding-right: 0.5em;
+}
+// #endregion
+
+/* #region Column Widths */
+.mat-column-id,
+.mat-column-applicationName,
+.mat-column-entryTime,
+.mat-column-logLevel {
+    padding-right: 15px;
+} 
+
+.mat-column-id,
+.mat-column-entryTime,
+.mat-column-logLevel {
+    white-space: nowrap;
+}
+
+.mat-column-applicationName {
+    min-width: 120px;
+}
+
+.table-row-detail-exception,
+.table-row-detail-logger,
+.table-row-detail-callsite {
+    margin: 1em 0;
+}
+/* #endregion */

@@ -1,0 +1,19 @@
+.main-component-container {
+    border: .5px solid #dbdbdb;
+    border-radius: 5px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 5px 5px 0 0;
+    color: white;
+}
+
+.content-area{
+    margin: 16px 24px;
+    overflow: hidden;
+}
+

@@ -1,0 +1,12 @@
+<div class="table-row-detail">
+  <span class="bold-font display-name">Loggername:</span> <span>{{logEntry.logger}}</span>
+</div>
+<mat-divider></mat-divider>
+<div class="table-row-detail">
+  <span class="bold-font display-name">Stacktrace:</span> <span>{{logEntry.stacktrace}}</span>
+</div>
+<mat-divider></mat-divider>
+<div class="table-row-detail">
+  <span class="bold-font display-name">Exception:</span>
+  <app-detail-tree-view [jsonString]="logEntry.exception"></app-detail-tree-view>
+</div>

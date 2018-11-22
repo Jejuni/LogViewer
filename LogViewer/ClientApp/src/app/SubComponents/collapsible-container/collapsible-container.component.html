@@ -1,0 +1,11 @@
+<div class="main-component-container" >
+  <header class="header-container" [@addRemoveBorder]="showContent ? 'hideBorder' : 'showBorder'">
+    <span>{{headerText}}</span>
+    <button mat-icon-button (click)="showContent = !showContent">
+      <mat-icon>{{showContent ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </button>
+  </header>
+  <div @hideShowContainer *ngIf="showContent" class="content-area">
+    <ng-content></ng-content>
+  </div>
+</div>

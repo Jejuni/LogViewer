@@ -1,0 +1,31 @@
+.main-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    border-radius: 0 0 5px 5px;
+}
+
+.spacer {
+    flex: 1;
+}
+
+// .icon {
+//     padding: 0 14px;
+// }
+
+// .button-with-icon {
+//     display: flex;
+// }
+
+.button-text {
+    padding-right: 7px;
+    padding-top: 3px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

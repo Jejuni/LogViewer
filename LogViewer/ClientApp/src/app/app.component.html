@@ -1,0 +1,18 @@
+<app-header-toolbar></app-header-toolbar>
+<app-header-splash-screen></app-header-splash-screen>
+
+<div class="main-element-container">
+    <app-collapsible-container [headerText]="'Log View Summary'">
+        <app-loglevel-displays></app-loglevel-displays>
+    </app-collapsible-container>
+</div>
+
+<div class="main-element-container">
+    <app-collapsible-container [headerText]="'Filter Settings'">
+        <app-master-filter-container></app-master-filter-container>
+    </app-collapsible-container>
+</div>
+
+<div class="main-element-container">
+    <app-log-entry-table></app-log-entry-table>
+</div>
