@@ -11,7 +11,6 @@ namespace LogViewer.ViewModels
     {
         public int Page { get; set; }
         public int CountPerPage { get; set; }
-        [Required]
         public SortingFilter Sorting { get; set; }
         [Required]
         public DataFilter Filters { get; set; }

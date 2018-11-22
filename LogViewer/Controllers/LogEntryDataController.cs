@@ -1,11 +1,13 @@
 ﻿using LogViewer.Core.Data.Entities;
 using LogViewer.Core.Interfaces;
+using LogViewer.Filters;
 using LogViewer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace LogViewer.Controllers
@@ -31,9 +33,11 @@ namespace LogViewer.Controllers
         }
 
         [HttpPost("[action]")]
+        [ApiModelFilter]
         public async Task<ActionResult<LogEntryResponse>> GetLogEntries([FromBody]LogEntryRequest request)
         {
             var logEntryList = await logService.GetLogEntriesAsync(request.Filters, request.Page, request.CountPerPage, request.Sorting).ConfigureAwait(false);
+
             return new LogEntryResponse
             {
                 CurrentPage = request.Page,

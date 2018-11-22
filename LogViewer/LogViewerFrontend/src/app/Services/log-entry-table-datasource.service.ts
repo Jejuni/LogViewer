@@ -21,13 +21,7 @@ export class LogEntryTableDatasourceService extends DataSource<LogEntry> {
     super();
     this.subject$ = new BehaviorSubject<LogEntry[]>([]);
     this.logEntryEmitter$ = this.subject$.asObservable();
-    this.currentLogFilters = {
-      appId: null,
-      endDate: null,
-      logLevels: Object.keys(LogLevels).map(val => LogLevels[val]),
-      messageInclude: null,
-      startDate: null
-    };
+    this.currentLogFilters = LogFilters.getDefaultLogFilters();
     this.sortOptions = new Nullable<LogSorting>();
   }
 
@@ -37,7 +31,7 @@ export class LogEntryTableDatasourceService extends DataSource<LogEntry> {
   private currentLogFilters: LogFilters;
   private subject$: BehaviorSubject<LogEntry[]>;
   private logEntryEmitter$: Observable<LogEntry[]>;
-  private combinedSubscriptions: Subscription;
+  private combinedSubscriptions: Subscription | null;
   private httpSubscription: Subscription;
 
   public isLoadingResults = true;
@@ -46,6 +40,11 @@ export class LogEntryTableDatasourceService extends DataSource<LogEntry> {
   public pageSize = 25;
 
   public addSorterAndPager(paginator: MatPaginator, sorter: MatSort): void {
+    if (!!this.combinedSubscriptions) {
+      this.combinedSubscriptions.unsubscribe();
+      this.combinedSubscriptions = null;
+    }
+
     this.paginator = paginator;
     this.sorter = sorter;
 
@@ -77,7 +76,7 @@ export class LogEntryTableDatasourceService extends DataSource<LogEntry> {
 
       this.updateStatePublishResults(logEntryRequest);
     });
-    this.combinedSubscriptions.add(otherSub);
+    this.combinedSubscriptions!.add(otherSub);
   }
 
   public loadNewResults(logFilters: LogFilters): void {
@@ -116,6 +115,11 @@ export class LogEntryTableDatasourceService extends DataSource<LogEntry> {
   }
 
   public disconnect(): void {
-    this.combinedSubscriptions.unsubscribe();
+    if (!!this.combinedSubscriptions) {
+      this.combinedSubscriptions.unsubscribe();
+    }
+    if (!!this.httpSubscription) {
+      this.httpSubscription.unsubscribe();
+    }
   }
 }

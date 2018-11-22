@@ -1,3 +1,7 @@
 <mat-form-field class="full-width">
-  <input #filterBox matInput (keyup)="applyFilter(filterBox.value)" placeholder="Message Filter">
+  <input #filterBox matInput (keyup)="applyFilter(filterBox.value)" [placeholder]="placeholderString" class="filter-input" [(ngModel)]="inputValue">
+  <button mat-icon-button *ngIf="inputValue"  (click)="inputValue = ''; debouncer.next('');" matSuffix>
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-hint>Multiple values may be seperated by a semicolon</mat-hint>
 </mat-form-field>

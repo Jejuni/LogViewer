@@ -1,0 +1,13 @@
+<div class="flex-container">
+  <mat-icon matPrefix class="prefix-icon">access_time</mat-icon>
+  <div class="flex-container">
+    <mat-form-field class="width-restricted-smaller">
+      <input #hourVal matInput [(ngModel)]="_hourValue" placeholder="HH" type="text" maxlength="2" (blur)="inputChanged()">
+    </mat-form-field>
+
+    <mat-form-field class="width-restricted-small">
+      <div matPrefix class="prefix-icon">:</div>
+      <input #minVal matInput [(ngModel)]="_minuteValue" placeholder="MM" type="text" maxlength="2" (blur)="inputChanged()">
+    </mat-form-field>
+  </div>
+</div>

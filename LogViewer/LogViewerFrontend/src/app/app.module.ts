@@ -16,6 +16,8 @@ import { CollapsibleContainerComponent } from './SubComponents/collapsible-conta
 import { LoglevelDisplaysComponent } from './SubComponents/loglevel-displays/loglevel-displays.component';
 import { HeaderToolbarComponent } from './SubComponents/header-toolbar/header-toolbar.component';
 import { HeaderSplashScreenComponent } from './SubComponents/header-splash-screen/header-splash-screen.component';
+import { TimePickerComponent } from './SubComponents/time-picker/time-picker.component';
+import { LeadingZeroPipe } from './Pipes/leading-zero.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { HeaderSplashScreenComponent } from './SubComponents/header-splash-scree
     CollapsibleContainerComponent,
     LoglevelDisplaysComponent,
     HeaderToolbarComponent,
-    HeaderSplashScreenComponent
+    HeaderSplashScreenComponent,
+    TimePickerComponent,
+    LeadingZeroPipe
   ],
   imports: [
     BrowserModule,

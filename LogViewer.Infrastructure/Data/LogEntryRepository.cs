@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,10 +37,12 @@ namespace LogViewer.Infrastructure.Data
                 logEntries = logEntries.Where(x => enumNames.Contains(x.LogLevel));
             }
 
-            if (!string.IsNullOrEmpty(dataFilter.MessageInclude))
-                logEntries = logEntries.Where(x => x.Message.Contains(dataFilter.MessageInclude));
+            logEntries = SetupQueryableWhereExpression(logEntries, dataFilter.MessageIncludes, nameof(LogEntry.Message), FilterStringOptions.Include);
+            logEntries = SetupQueryableWhereExpression(logEntries, dataFilter.MessageExcludes, nameof(LogEntry.Message), FilterStringOptions.Exclude);
+            logEntries = SetupQueryableWhereExpression(logEntries, dataFilter.LoggernameIncludes, nameof(LogEntry.Logger), FilterStringOptions.Include);
+            logEntries = SetupQueryableWhereExpression(logEntries, dataFilter.LoggernameExcludes, nameof(LogEntry.Logger), FilterStringOptions.Exclude);
 
-            if(sort != null)
+            if (sort != null)
             {
                 switch (sort.SortColumn)
                 {
@@ -62,6 +65,40 @@ namespace LogViewer.Infrastructure.Data
                 .Take(countPerPage)
                 .ToListAsync()
                 .ConfigureAwait(false), logEntriesTotalCount);
+        }
+
+        private IQueryable<LogEntry> SetupQueryableWhereExpression(IQueryable<LogEntry> query, List<string> stringCompares, string propName, FilterStringOptions options)
+        {
+            // no includes / excludes => nothing to do
+            if (stringCompares == null || stringCompares.Count == 0)
+                return query;
+
+            var eParam = Expression.Parameter(typeof(LogEntry), "x");
+            var method = typeof(string).GetMethod("Contains", new[] { typeof(string) }); // Comparing will be done with the string.Contains method
+            List<MethodCallExpression> methodCalls = new List<MethodCallExpression>();
+
+            // at this point we possible have 1-n comparsions to do
+            foreach (string str in stringCompares)
+                methodCalls.Add(Expression.Call(Expression.Property(eParam, propName), method, Expression.Constant(str)));
+
+            // if we only have 1 comparsion to do we're done, otherwise we'll replace this variable
+            Expression finalExpr = methodCalls[0]; 
+            if (stringCompares.Count > 1)
+            {
+                // Or-ing initial expression
+                BinaryExpression orExpr = Expression.OrElse(methodCalls[0], methodCalls[1]);
+                // if we still have more expression we keep or-ing
+                for (int i = 2; i < methodCalls.Count; i++)
+                {
+                    orExpr = Expression.OrElse(orExpr, methodCalls[i]);
+                }
+          
+                finalExpr = orExpr;
+            }
+
+            // Switching between include / exclude is a simple matter of Not-ing the expression
+            finalExpr = options == FilterStringOptions.Exclude ? Expression.Not(finalExpr) : finalExpr;
+            return query.Where(Expression.Lambda<Func<LogEntry, bool>>(finalExpr, eParam));
         }
     }
 }

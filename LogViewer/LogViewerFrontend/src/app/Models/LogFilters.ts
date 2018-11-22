@@ -5,5 +5,21 @@ export class LogFilters {
     logLevels: LogLevels[];
     startDate: Date | null;
     endDate: Date | null;
-    messageInclude: string | null;
+    messageIncludes: string[] | null;
+    messageExcludes: string[] | null;
+    loggernameIncludes: string[] | null;
+    loggernameExcludes: string[] | null;
+
+    static getDefaultLogFilters(): LogFilters {
+        return {
+            appId: null,
+            logLevels: Object.keys(LogLevels).map(val => LogLevels[val]),
+            startDate: null,
+            endDate: null,
+            messageIncludes: null,
+            messageExcludes: null,
+            loggernameIncludes: null,
+            loggernameExcludes: null
+        };
+    }
 }

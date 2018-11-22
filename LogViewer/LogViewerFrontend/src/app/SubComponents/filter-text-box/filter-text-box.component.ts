@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -9,8 +9,12 @@ import { Subject } from 'rxjs';
 })
 export class FilterTextBoxComponent implements OnInit, OnDestroy {
   @Output() public filterChange = new EventEmitter<string>();
-  private debouncer = new Subject<string>();
+  @Input() public placeholderString = '';
+  @Input() public tooltipString = '';
+  public debouncer = new Subject<string>();
   constructor() { }
+
+  inputValue = '';
 
   ngOnInit() {
     this.debouncer.pipe(
