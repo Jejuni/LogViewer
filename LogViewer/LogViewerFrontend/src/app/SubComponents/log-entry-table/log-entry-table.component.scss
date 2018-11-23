@@ -3,6 +3,10 @@ table {
     width: 100%;
 }
 
+tr.transparent-background {
+    background-color: rgba(241,241,241, .2);
+}
+
 .table-main-container {
     position: relative;
     border-radius: 5px;

@@ -25,7 +25,7 @@ export class DisplayService {
 
   changeDisplaySetting() {
     this.settings.isInfiniteTableSet = !this.settings.isInfiniteTableSet;
-    this.cookieService.set(this.cookieName, JSON.stringify(this.settings), undefined, '/');
+    this.cookieService.set(this.cookieName, JSON.stringify(this.settings), new Date(2070, 1, 1), '/');
   }
 
   changeTheme() {
@@ -34,6 +34,6 @@ export class DisplayService {
 
     // this.isDarkTheme = !this.isDarkTheme;
     this.settings.isDarkTheme = !this.settings.isDarkTheme;
-    this.cookieService.set(this.cookieName, JSON.stringify(this.settings), undefined, '/');
+    this.cookieService.set(this.cookieName, JSON.stringify(this.settings), new Date(2070, 1, 1), '/');
   }
 }
