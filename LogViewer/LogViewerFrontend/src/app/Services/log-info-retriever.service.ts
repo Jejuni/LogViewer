@@ -7,6 +7,7 @@ import { LogEntryResponse } from '../Models/LogEntryResponse';
 import { map, catchError } from 'rxjs/operators';
 import { AppNameResponse } from '../Models/AppNameResponse';
 import { Application } from '../Models/Application';
+import { EnvironmentNameResponse } from '../Models/EnvironmentNameResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,21 @@ export class LogInfoRetrieverService {
       catchError(err => {
         console.log(`Error during appName retrieval. Error was [${JSON.stringify(err)}]`);
         return of([]);
+      })
+    );
+  }
+
+  /**
+   * Retrieves the friendly name of the current environment (Development, Staging, Production)
+   * In case of an error a message is logged to the console and an empty string is returned
+   */
+  public getHostringEnvName(): Observable<string> {
+    const url = `${this.baseUrl}/api/LogEntryData/GetHostringEnvironment`;
+    return this.http.get<EnvironmentNameResponse>(url).pipe(
+      map(data => data.environmentName),
+      catchError(err => {
+        console.log(`Error during Environment Name retrieval. Error was [${JSON.stringify(err)}]`);
+        return of('');
       })
     );
   }

@@ -48,8 +48,8 @@
         </div>
         <div class="filter-inner-container">
             <app-time-picker
-            [hourValue]="currentLogFilters.startDate.getHours().toString()"
-            [minuteValue]="currentLogFilters.startDate.getMinutes().toString()"
+            [hourValue]="currentLogFilters.startDate?.getHours().toString()"
+            [minuteValue]="currentLogFilters.startDate?.getMinutes().toString()"
             (timeChanged)="onStartTimeChanged($event)"></app-time-picker>
         </div>
         <div class="filter-inner-container">
@@ -62,8 +62,8 @@
         </div>
         <div class="filter-inner-container">
             <app-time-picker
-            [hourValue]="currentLogFilters.endDate.getHours().toString()"
-            [minuteValue]="currentLogFilters.endDate.getMinutes().toString()"
+            [hourValue]="currentLogFilters.endDate?.getHours().toString()"
+            [minuteValue]="currentLogFilters.endDate?.getMinutes().toString()"
             (timeChanged)="onEndTimeChanged($event)"></app-time-picker>
         </div>
 

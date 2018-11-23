@@ -2,6 +2,7 @@
 using LogViewer.Core.Interfaces;
 using LogViewer.Filters;
 using LogViewer.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
@@ -16,10 +17,12 @@ namespace LogViewer.Controllers
     public class LogEntryDataController: Controller
     {
         private readonly ILogEntryRetrievalService logService;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public LogEntryDataController(ILogEntryRetrievalService logService)
+        public LogEntryDataController(ILogEntryRetrievalService logService, IHostingEnvironment hostingEnvironment)
         {
             this.logService = logService ?? throw new ArgumentNullException(nameof(logService));
+            this.hostingEnvironment = hostingEnvironment ?? throw new ArgumentNullException(nameof(hostingEnvironment));
         }
 
         [HttpGet("[action]")]
@@ -45,5 +48,8 @@ namespace LogViewer.Controllers
                 LogEntries = logEntryList.logEntries
             };
         }
+
+        [HttpGet("[action]")]
+        public ActionResult<EnvironmentNameResponse> GetHostringEnvironment() => new EnvironmentNameResponse { EnvironmentName = hostingEnvironment.EnvironmentName };
     }
 }

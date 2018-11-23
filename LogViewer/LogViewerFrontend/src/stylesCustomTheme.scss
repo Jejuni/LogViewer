@@ -2,6 +2,7 @@
 // Plus imports for other components in your app.
 @import './app/SubComponents/collapsible-container/collapsible-container.component.theme.scss';
 @import './app/SubComponents/header-splash-screen/header-splash-screen.component.theme.scss';
+@import './app/SubComponents/loglevel-displays/loglevel-display.component.theme.scss';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -24,14 +25,23 @@ $custom-app-theme: mat-light-theme($custom-app-primary, $custom-app-accent, $cus
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 
-$custom-app-theme-dark: mat-dark-theme($custom-app-primary, $custom-app-accent, $custom-app-warn);
+//$custom-app-theme-dark: mat-dark-theme($custom-app-primary, $custom-app-accent, $custom-app-warn);
+$custom-app-theme-dark: mat-dark-theme(mat-palette($mat-orange, 800), $custom-app-accent, $custom-app-warn);
+$typo-config: mat-typography-config();
 
+// default theme
 @include angular-material-theme($custom-app-theme);
+
 .custom-app-theme-dark {
     @include angular-material-theme($custom-app-theme-dark);
-}
+    @include collapsible-container-theme($custom-app-theme-dark);
+    @include collapsible-container-typography($typo-config);
 
-$typo-config: mat-typography-config();
+    @include splash-screen-theme($custom-app-theme-dark);
+    @include splash-screen-typography($typo-config);
+
+    @include loglevel-display-theme($custom-app-theme-dark);
+}
 
 // Custom Component Theming Section
 @include collapsible-container-theme($custom-app-theme);
@@ -39,3 +49,5 @@ $typo-config: mat-typography-config();
 
 @include splash-screen-theme($custom-app-theme);
 @include splash-screen-typography($typo-config);
+
+@include loglevel-display-theme($custom-app-theme);

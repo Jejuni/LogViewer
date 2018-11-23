@@ -1,10 +1,16 @@
 <mat-toolbar color='primary' class="main-toolbar mat-elevation-z6">
   <span>Log Viewer and Analyzer</span>
   <span class="spacer"></span>
-  <button mat-raised-button class="button-with-icon" (click)="tableDisplayService.changeDisplaySetting()">
+  <button mat-raised-button class="button-with-icon" (click)="displayService.changeDisplaySetting()">
     <div class="button-container">
-        <span class="button-text">{{tableDisplayService.isInfiniteTableSet ? 'Disable Infinite Table' : 'Enable Infinite Table'}}</span>
+        <span class="button-text">{{displayService.settings.isInfiniteTableSet ? 'Static Table Height' : 'Dynamic Table Height'}}</span>
         <mat-icon class="icon">list_alt</mat-icon>
+    </div>
+  </button>
+  <button mat-raised-button class="button-with-icon" (click)="displayService.changeTheme();">
+    <div class="button-container">
+        <span class="button-text">{{ displayService.settings.isDarkTheme ? 'Switch To Light Theme' : 'Switch To Dark Theme'}}</span>
+        <mat-icon class="icon">color_lens</mat-icon>
     </div>
   </button>
 </mat-toolbar>

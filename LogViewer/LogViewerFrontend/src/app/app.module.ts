@@ -18,6 +18,7 @@ import { HeaderToolbarComponent } from './SubComponents/header-toolbar/header-to
 import { HeaderSplashScreenComponent } from './SubComponents/header-splash-screen/header-splash-screen.component';
 import { TimePickerComponent } from './SubComponents/time-picker/time-picker.component';
 import { LeadingZeroPipe } from './Pipes/leading-zero.pipe';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { LeadingZeroPipe } from './Pipes/leading-zero.pipe';
     HttpClientModule,
     AngularMaterialImportsModule
   ],
-  providers: [],
+  providers: [ CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

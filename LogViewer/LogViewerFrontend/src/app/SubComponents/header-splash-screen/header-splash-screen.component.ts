@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { LogInfoRetrieverService } from 'src/app/Services/log-info-retriever.service';
 
 @Component({
   selector: 'app-header-splash-screen',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderSplashScreenComponent implements OnInit {
 
-  constructor() { }
+  constructor(private logService: LogInfoRetrieverService) { }
+
+  public envName$: Observable<string>;
 
   ngOnInit() {
+    this.envName$ = this.logService.getHostringEnvName();
   }
 
 }

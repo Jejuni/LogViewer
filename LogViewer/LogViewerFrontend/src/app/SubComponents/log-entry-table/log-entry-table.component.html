@@ -4,7 +4,7 @@
       <mat-spinner *ngIf="dataSource.isLoadingResults"></mat-spinner>
     </div>
 
-    <div class="table-container" [ngClass]="{'height-locked-table': !tableDisplayService.isInfiniteTableSet}">
+    <div class="table-container" [ngClass]="{'height-locked-table': !tableDisplayService.settings.isInfiniteTableSet}">
 
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="log-table" matSort>
 

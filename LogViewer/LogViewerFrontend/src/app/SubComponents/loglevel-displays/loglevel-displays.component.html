@@ -4,7 +4,8 @@
       <div class="round-emblem">
         <mat-icon>{{logStyleRetriever.getStyleForLogLevel(logLevel).iconName}}</mat-icon>
       </div>
-      <div>{{logLevel}}</div>
+      <div class="spacer"></div>
+      <div class="log-level-text">{{logLevel}}</div>
     </div>
     <div class="log-level-box-body">
       <span class="text-container text-top"><span class="pre-text">Amount:</span>{{logStats[logLevel].amount}}</span>

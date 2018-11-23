@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TableHeightSetterService } from './table-height-setter.service';
+import { DisplayService } from './display.service';
 
 describe('TableHeightSetterService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TableHeightSetterService = TestBed.get(TableHeightSetterService);
+    const service: DisplayService = TestBed.get(DisplayService);
     expect(service).toBeTruthy();
   });
 });

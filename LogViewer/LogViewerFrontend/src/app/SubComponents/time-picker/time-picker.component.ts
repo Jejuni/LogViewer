@@ -18,7 +18,11 @@ export class TimePickerComponent implements OnInit {
   }
   @Input()
   set hourValue(value: string) {
-    this._hourValue = this.padStringLeadingZero(value);
+    if (!value) {
+      this._hourValue = '00';
+    } else {
+      this._hourValue = this.padStringLeadingZero(value);
+    }
   }
 
   get minuteValue(): string {

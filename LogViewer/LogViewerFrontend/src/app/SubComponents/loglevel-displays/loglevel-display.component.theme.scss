@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+@mixin loglevel-display-theme($theme) {
+    $bg: map-get($theme, background);
+    .round-emblem {
+        background-color: mat-color($bg, background);
+    }
+}

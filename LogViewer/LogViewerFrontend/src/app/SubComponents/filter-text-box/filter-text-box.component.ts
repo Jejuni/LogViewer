@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, Subscription, of } from 'rxjs';
 
 @Component({
   selector: 'app-filter-text-box',
@@ -12,12 +12,13 @@ export class FilterTextBoxComponent implements OnInit, OnDestroy {
   @Input() public placeholderString = '';
   @Input() public tooltipString = '';
   public debouncer = new Subject<string>();
+  private sub: Subscription;
   constructor() { }
 
   inputValue = '';
 
   ngOnInit() {
-    this.debouncer.pipe(
+    this.sub = this.debouncer.pipe(
        // wait 300ms after each keystroke before considering the term
        debounceTime(300),
 
@@ -27,7 +28,10 @@ export class FilterTextBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.debouncer.unsubscribe();
+    if (!!this.sub) {
+      this.sub.unsubscribe();
+    }
+
   }
 
   public applyFilter(term: string): void {

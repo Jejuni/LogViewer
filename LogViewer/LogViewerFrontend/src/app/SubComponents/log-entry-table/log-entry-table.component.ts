@@ -4,7 +4,7 @@ import { LogEntryTableDatasourceService } from 'src/app/Services/log-entry-table
 import { LogEntry } from 'src/app/Models/LogEntry';
 import { LogLevelStyleRetrieverService } from 'src/app/Services/log-level-style-retriever.service';
 import { MatPaginator, MatSort } from '@angular/material';
-import { TableHeightSetterService } from 'src/app/Services/table-height-setter.service';
+import { DisplayService } from 'src/app/Services/display.service';
 
 @Component({
   selector: 'app-log-entry-table',
@@ -25,7 +25,7 @@ export class LogEntryTableComponent implements OnInit {
   constructor(
     public dataSource: LogEntryTableDatasourceService,
     public logStyleRetriever: LogLevelStyleRetrieverService,
-    public tableDisplayService: TableHeightSetterService
+    public tableDisplayService: DisplayService
     ) {
     this.columnsToDisplay = [
       'id',

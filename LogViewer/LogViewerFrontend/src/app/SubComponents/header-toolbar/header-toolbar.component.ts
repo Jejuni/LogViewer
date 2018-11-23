@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TableHeightSetterService } from 'src/app/Services/table-height-setter.service';
+import { DisplayService } from 'src/app/Services/display.service';
 
 @Component({
   selector: 'app-header-toolbar',
@@ -8,9 +8,10 @@ import { TableHeightSetterService } from 'src/app/Services/table-height-setter.s
 })
 export class HeaderToolbarComponent implements OnInit {
 
-  constructor(public tableDisplayService: TableHeightSetterService) { }
+  constructor(
+    public displayService: DisplayService
+    ) { }
 
   ngOnInit() {
   }
-
 }
