@@ -41,5 +41,6 @@ export class LoglevelDisplaysComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    console.log('destroyed');
   }
 }

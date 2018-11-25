@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,7 +51,7 @@ namespace LogViewer.Infrastructure.Data
                         logEntries = sort.SortOrder == SortOrder.Asc ? logEntries.OrderBy(x => x.EntryTime) : logEntries.OrderByDescending(x => x.EntryTime);
                         break;
                     default:
-                        throw new NotSupportedException($"Enum [SortColumn] with value {sort.SortColumn} is not yet supportted!");
+                        throw new NotSupportedException($"Enum [SortColumn] with value {sort.SortColumn} is not yet supported!");
                 }
             }
 
@@ -73,8 +74,8 @@ namespace LogViewer.Infrastructure.Data
             if (stringCompares == null || stringCompares.Count == 0)
                 return query;
 
-            var eParam = Expression.Parameter(typeof(LogEntry), "x");
-            var method = typeof(string).GetMethod("Contains", new[] { typeof(string) }); // Comparing will be done with the string.Contains method
+            ParameterExpression eParam = Expression.Parameter(typeof(LogEntry), "x");
+            MethodInfo method = typeof(string).GetMethod("Contains", new[] { typeof(string) }); // Comparing will be done with the string.Contains method
             List<MethodCallExpression> methodCalls = new List<MethodCallExpression>();
 
             // at this point we possible have 1-n comparsions to do

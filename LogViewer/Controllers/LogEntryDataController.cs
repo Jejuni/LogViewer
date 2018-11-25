@@ -39,13 +39,13 @@ namespace LogViewer.Controllers
         [ApiModelFilter]
         public async Task<ActionResult<LogEntryResponse>> GetLogEntries([FromBody]LogEntryRequest request)
         {
-            var logEntryList = await logService.GetLogEntriesAsync(request.Filters, request.Page, request.CountPerPage, request.Sorting).ConfigureAwait(false);
+            var (logEntries, totalCount) = await logService.GetLogEntriesAsync(request.Filters, request.Page, request.CountPerPage, request.Sorting).ConfigureAwait(false);
 
             return new LogEntryResponse
             {
                 CurrentPage = request.Page,
-                TotalEntries = logEntryList.totalCount,
-                LogEntries = logEntryList.logEntries
+                TotalEntries = totalCount,
+                LogEntries = logEntries
             };
         }
 
