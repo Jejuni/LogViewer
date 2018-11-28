@@ -1,3 +1,5 @@
+using EOS.KSI.CompanyCore;
+using EOS.KSI.CompanyCore.Helper;
 using LogViewer.Core.Interfaces;
 using LogViewer.Core.Services;
 using LogViewer.Infrastructure.Data;
@@ -14,17 +16,21 @@ namespace LogViewer
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            CurrentIkarosEnvironment = IkarosVariablesHelper.GetIkarosEnvironmentForWellKnownIdentifier(hostingEnvironment.EnvironmentName);
         }
 
         public IConfiguration Configuration { get; }
+        public static IkarosEnvironment CurrentIkarosEnvironment { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<LoggingDbContext>(o => o.UseSqlServer(Configuration["DatabaseConnectionString:Logging"], sqlO => sqlO.EnableRetryOnFailure()));
+            //services.AddDbContext<LoggingDbContext>(o => o.UseSqlServer(Configuration["DatabaseConnectionString:Logging"], sqlO => sqlO.EnableRetryOnFailure()));
+            services.AddDbContext<LoggingDbContext>(o => o.UseSqlServer(LoggingDbHelper.GetLoggingDbInfo(CurrentIkarosEnvironment).GetConnectionString("batch", "batch"),
+                sqlO => sqlO.EnableRetryOnFailure()));
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IApplicationRepository, ApplicationRepository>();

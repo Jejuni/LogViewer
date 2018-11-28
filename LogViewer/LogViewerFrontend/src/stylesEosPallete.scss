@@ -1,0 +1,68 @@
+$dark-primary: rgba(black, 0.87);
+$light-primary: white;
+
+$eos-red: (
+  50: #f5b6a8,
+  100: #f18c75,
+  200: #da5b3e,
+  300: #cc5136,
+  400: #b1371b,
+  500: #9e2b11,
+  600: #97260c,
+  700: #8d2109,
+  800: #831d06,
+  900: #721703,
+  A100: #ff6b4a,
+  A200: #ff542d,
+  A400: #8d1a00,
+  A700: #721500,
+  contrast: (
+    50: $dark-primary,
+    100: $dark-primary,
+    200: $dark-primary,
+    300: $dark-primary,
+    400: $dark-primary,
+    500: $light-primary,
+    600: $light-primary,
+    700: $light-primary,
+    800: $light-primary,
+    900: $light-primary,
+    A100: $dark-primary,
+    A200: $light-primary,
+    A400: $light-primary,
+    A700: $light-primary,
+  )
+);
+
+$eos-grey: (
+  50: rgb(241, 240, 240),
+  100: rgb(214, 214, 214),
+  200: #b1b1b0,
+  300: #888887,
+  400: #636362,
+  500: #4d4d4c,
+  600: #424241,
+  700: #3b3b39,
+  800: #333330,
+  900: #2c2c29,
+  A100: #8a8a8a,
+  A200: #646464,
+  A400: #3b3b3b,
+  A700: #2b2b2b,
+  contrast: (
+    50: $dark-primary,
+    100: $dark-primary,
+    200: $dark-primary,
+    300: $dark-primary,
+    400: $dark-primary,
+    500: $light-primary,
+    600: $light-primary,
+    700: $light-primary,
+    800: $light-primary,
+    900: $light-primary,
+    A100: $dark-primary,
+    A200: $light-primary,
+    A400: $light-primary,
+    A700: $light-primary,
+  )
+);

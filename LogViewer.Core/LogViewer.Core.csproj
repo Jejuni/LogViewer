@@ -8,4 +8,8 @@
     <Folder Include="Exceptions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="EOS.KSI.CompanyCore" Version="1.0.15" />
+  </ItemGroup>
+
 </Project>

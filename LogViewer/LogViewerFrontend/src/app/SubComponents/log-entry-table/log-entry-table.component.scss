@@ -19,8 +19,8 @@ tr.transparent-background {
 }
 
 .height-locked-table {
-    height: 900px;
-    max-height: 900px;
+    height: 85vh;
+    max-height: 85vh;
 }
 /* #endregion */
 
@@ -95,7 +95,11 @@ tr.table-detail-row {
 }
 
 .mat-column-applicationName {
-    min-width: 160px;
+    min-width: 120px;
+}
+
+.mat-column-message {
+    word-break: break-all;
 }
 
 .table-row-detail-exception,

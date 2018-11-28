@@ -3,6 +3,7 @@
 @import './app/SubComponents/collapsible-container/collapsible-container.component.theme.scss';
 @import './app/SubComponents/header-splash-screen/header-splash-screen.component.theme.scss';
 @import './app/SubComponents/loglevel-displays/loglevel-display.component.theme.scss';
+@import './stylesEosPallete.scss';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -12,10 +13,10 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$custom-app-primary: mat-palette($mat-deep-purple);
-$custom-app-accent:  mat-palette($mat-amber);
-
-// The warn palette is optional (defaults to red).
+// $custom-app-primary: mat-palette($mat-deep-purple);
+// $custom-app-accent:  mat-palette($mat-amber);
+$custom-app-primary: mat-palette($eos-red);
+$custom-app-accent:  mat-palette($eos-grey);
 $custom-app-warn:    mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
@@ -25,8 +26,7 @@ $custom-app-theme: mat-light-theme($custom-app-primary, $custom-app-accent, $cus
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 
-//$custom-app-theme-dark: mat-dark-theme($custom-app-primary, $custom-app-accent, $custom-app-warn);
-$custom-app-theme-dark: mat-dark-theme(mat-palette($mat-orange, 800), $custom-app-accent, $custom-app-warn);
+$custom-app-theme-dark: mat-dark-theme($custom-app-primary, $custom-app-accent, $custom-app-warn);
 $typo-config: mat-typography-config();
 
 // default theme
