@@ -22,7 +22,12 @@ export class LogEntryTableDatasourceService extends DataSource<LogEntry> {
     this.subject$ = new BehaviorSubject<LogEntry[]>([]);
     this.logEntryEmitter$ = this.subject$.asObservable();
     this.currentLogFilters = LogFilters.getDefaultLogFilters();
-    this.sortOptions = new Nullable<LogSorting>();
+    this.sortOptions = {
+      value: {
+        sortColumn: 'entryTime',
+        sortOrder: 'desc'
+      }
+    };
   }
 
   private paginator: MatPaginator;
@@ -77,6 +82,17 @@ export class LogEntryTableDatasourceService extends DataSource<LogEntry> {
       this.updateStatePublishResults(logEntryRequest);
     });
     this.combinedSubscriptions!.add(otherSub);
+  }
+
+  public refreshCurrentResults(): void {
+    const logEntryRequest = new LogEntryRequest();
+
+    logEntryRequest.filters = this.currentLogFilters;
+    logEntryRequest.countPerPage = this.pageSize;
+    logEntryRequest.page = this.currentPage;
+    logEntryRequest.sorting = this.sortOptions.value;
+
+    this.updateStatePublishResults(logEntryRequest);
   }
 
   public loadNewResults(logFilters: LogFilters): void {

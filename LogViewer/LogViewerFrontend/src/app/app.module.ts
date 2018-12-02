@@ -19,6 +19,9 @@ import { HeaderSplashScreenComponent } from './SubComponents/header-splash-scree
 import { TimePickerComponent } from './SubComponents/time-picker/time-picker.component';
 import { LeadingZeroPipe } from './Pipes/leading-zero.pipe';
 import { CookieService } from 'ngx-cookie-service';
+import { LogMessageDisplayComponent } from './SubComponents/log-message-display/log-message-display.component';
+import { ReloadButtonDirective } from './Directives/Attribute/reload-button.directive';
+import { ReloadButtonComponent } from './SubComponents/reload-button/reload-button.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { CookieService } from 'ngx-cookie-service';
     HeaderToolbarComponent,
     HeaderSplashScreenComponent,
     TimePickerComponent,
-    LeadingZeroPipe
+    LeadingZeroPipe,
+    LogMessageDisplayComponent,
+    ReloadButtonDirective,
+    ReloadButtonComponent
   ],
   imports: [
     BrowserModule,

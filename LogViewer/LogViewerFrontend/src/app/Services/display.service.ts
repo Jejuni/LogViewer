@@ -1,6 +1,7 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { DisplayCookieSettings } from '../Models/displayCookieSettings';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

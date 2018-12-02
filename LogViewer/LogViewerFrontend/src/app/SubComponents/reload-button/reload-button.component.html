@@ -1,0 +1,6 @@
+<button mat-stroked-button (click)="$event.preventDefault(); $event.stopPropagation(); dataSourceSvc.refreshCurrentResults();">
+  <div class="button-container">
+    <span class="button-text">Reload</span>
+    <mat-icon class="icon">refresh</mat-icon>
+  </div>
+</button>

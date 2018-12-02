@@ -16,7 +16,6 @@ export class TreeParserService {
   public buildTreeFromStringifiedObject(obj: string): Observable<TreeNode[]> {
     let parsedObj;
     try {
-       // parsedObj = JSON.parse(obj.replace(/\\/g, '\\$&'));
        parsedObj = JSON.parse(obj);
     } catch (e) {
       throw new Error(`Given JSON was not able to be parsed. Given error was: [${e}]`);

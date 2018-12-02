@@ -5,9 +5,10 @@
     </div>
 
     <div class="table-container" [ngClass]="{'height-locked-table': !tableDisplayService.settings.isInfiniteTableSet}">
+      <app-reload-button></app-reload-button>
 
-      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="log-table" matSort>
-
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="log-table" matSort [matSortActive]="'entryTime'"
+        [matSortDirection]="'desc'" [matSortStart]="'desc'" matSortDisableClear>
         <!-- Id Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -40,13 +41,15 @@
         <!-- Message Column -->
         <ng-container matColumnDef="message">
           <th mat-header-cell *matHeaderCellDef>Message</th>
-          <td mat-cell *matCellDef="let row" class="main-view-row">{{row.message}}</td>
+          <td mat-cell *matCellDef="let row" class="main-view-row">
+            <app-log-message-display [messageString]="row.message"></app-log-message-display>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let row" [attr.colspan]="columnsToDisplay.length">
             <div class="entry-detail-container" [@detailExpand]="row === expandedRow ? 'expanded' : 'collapsed'">
-              <app-log-entry-details [logEntry]="row"></app-log-entry-details>
+              <app-log-entry-details [logEntry]="row" class="log-entry-detail-container"></app-log-entry-details>
             </div>
           </td>
         </ng-container>

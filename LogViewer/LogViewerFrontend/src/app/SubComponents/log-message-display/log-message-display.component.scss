@@ -1,0 +1,24 @@
+.message-flex-container {
+    display: flex;
+    align-items: center;
+}
+
+.json-button-container {
+    margin-left: auto;
+    padding-left: 10px;
+    margin-right: -24px;
+    //margin-top: -10px;
+}
+
+.json-button-container button {
+    //height: calc(100% + 10px);
+    white-space: nowrap;
+    word-break: normal;
+}
+
+.json-token {
+    color: #49a1ff;
+    border: 1px solid #e1e1e8;
+    padding: 2px 3px;
+    border-radius: 15px;
+}

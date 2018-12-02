@@ -1,0 +1,14 @@
+<div class="message-flex-container">
+  <div>
+    <ng-container *ngFor="let item of parsedValue.cleanedMessageStringArray; let idx = index">
+      <span *ngIf="idx !== 0 && !item.isReplacementToken">&nbsp;</span>
+      <span [ngClass]="{'json-token': item.isReplacementToken }">{{item.messageString}}</span>
+      <span *ngIf="idx !== parsedValue.cleanedMessageStringArray.length - 1 && !item.isReplacementToken">&nbsp;</span>
+    </ng-container>
+  </div>
+  <div *ngIf="!!parsedValue.extractedJsonStrings && parsedValue.extractedJsonStrings.length > 0" class="json-button-container">
+    <button mat-icon-button (click)="$event.stopPropagation();">
+        <mat-icon class="icon">unfold_more</mat-icon>
+    </button>
+  </div>
+</div>
