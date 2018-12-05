@@ -35,21 +35,6 @@ export class StringJsonParserService {
       cleanedMessageStringArray: parseResult.splitMessageString,
       extractedJsonStrings: parseResult.jsonStrings
     };
-
-    // const tokenRemovalRegEx = new RegExp(`${this.tokens.jsonStartToken}|${this.tokens.jsonEndToken}`, 'gi');
-    // const extractedJsonStrings: string[] = [];
-    // let match: RegExpExecArray | null;
-    // do {
-    //   match = regEx.exec(str);
-    //   if (!!match && !!match[0]) {
-    //     extractedJsonStrings.push(match[0].replace(tokenRemovalRegEx, ''));
-    //   }
-    // } while (!!match);
-
-    // return {
-    //   cleanedString: cleanedString,
-    //   extractedJsonStrings: extractedJsonStrings
-    // };
   }
 
   private validateAndParseJson(str: string) {
@@ -61,6 +46,7 @@ export class StringJsonParserService {
     const endTokenLength = this.tokens.jsonEndToken.length;
     const validJsonStringArray: string[] = [];
     const splitMessageWithTokens: CleanedMessageString[] = [];
+    let tokenCounter = 0;
 
     startIndex = str.indexOf(this.tokens.jsonStartToken);
     endIndex = str.indexOf(this.tokens.jsonEndToken);
@@ -101,7 +87,7 @@ export class StringJsonParserService {
       });
       splitMessageWithTokens.push({
         isReplacementToken: true,
-        messageString: this.tokens.jsonReplacementToken.trim()
+        messageString: `${this.tokens.jsonReplacementToken.trim()} #${++tokenCounter}`
       });
 
       validJsonStringArray.push(potentialJson);

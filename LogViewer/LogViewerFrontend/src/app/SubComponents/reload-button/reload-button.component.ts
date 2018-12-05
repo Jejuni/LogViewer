@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { LogEntryTableDatasourceService } from 'src/app/Services/log-entry-table-datasource.service';
 import { MatButton } from '@angular/material';
+import { DisplayService } from 'src/app/Services/display.service';
 
 @Component({
   selector: 'app-reload-button',

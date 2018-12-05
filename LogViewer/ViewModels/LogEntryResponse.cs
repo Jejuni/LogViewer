@@ -10,6 +10,6 @@ namespace LogViewer.ViewModels
     {
         public long TotalEntries { get; set; }
         public int CurrentPage { get; set; }
-        public IEnumerable<LogEntry> LogEntries { get; set; }
+        public IEnumerable<LogEntryViewModel> LogEntries { get; set; }
     }
 }

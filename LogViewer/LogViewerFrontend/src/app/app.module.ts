@@ -22,6 +22,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LogMessageDisplayComponent } from './SubComponents/log-message-display/log-message-display.component';
 import { ReloadButtonDirective } from './Directives/Attribute/reload-button.directive';
 import { ReloadButtonComponent } from './SubComponents/reload-button/reload-button.component';
+import { MessageJsonTreeContainerComponent } from './SubComponents/message-json-tree-container/message-json-tree-container.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ReloadButtonComponent } from './SubComponents/reload-button/reload-butt
     LeadingZeroPipe,
     LogMessageDisplayComponent,
     ReloadButtonDirective,
-    ReloadButtonComponent
+    ReloadButtonComponent,
+    MessageJsonTreeContainerComponent
   ],
   imports: [
     BrowserModule,

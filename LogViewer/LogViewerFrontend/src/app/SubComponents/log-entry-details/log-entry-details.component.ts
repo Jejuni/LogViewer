@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { LogEntry } from '../../Models/LogEntry';
 
 @Component({
@@ -14,5 +14,4 @@ export class LogEntryDetailsComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

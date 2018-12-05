@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+@mixin log-message-display-theme($theme) {
+    $primary: map-get($theme, primary);
+    .json-token {
+        color: mat-color($primary);
+    }
+}

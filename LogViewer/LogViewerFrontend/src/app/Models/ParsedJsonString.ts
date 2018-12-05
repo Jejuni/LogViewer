@@ -1,6 +1,6 @@
 import { CleanedMessageString } from './CleanedMessageString';
 
-export interface ParsedJsonString {
+export class ParsedJsonString {
     cleanedMessageStringArray: CleanedMessageString[];
     extractedJsonStrings: string[];
 }

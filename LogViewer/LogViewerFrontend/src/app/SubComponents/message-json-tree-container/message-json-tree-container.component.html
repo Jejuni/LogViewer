@@ -1,0 +1,8 @@
+<div class="tree-main-container">
+  <div class="tree-display json-container" *ngFor="let json of parsedValue.extractedJsonStrings; let idx = index">
+    <div class="inner-container">
+        <h3>JSON #{{idx + 1}}:</h3>
+        <app-detail-tree-view [jsonString]="json"></app-detail-tree-view>
+    </div>
+  </div>
+</div>

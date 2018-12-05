@@ -3,6 +3,7 @@
 @import './app/SubComponents/collapsible-container/collapsible-container.component.theme.scss';
 @import './app/SubComponents/header-splash-screen/header-splash-screen.component.theme.scss';
 @import './app/SubComponents/loglevel-displays/loglevel-display.component.theme.scss';
+@import './app/SubComponents/log-message-display/log-message-display.component.theme.scss';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -41,6 +42,7 @@ $typo-config: mat-typography-config();
     @include splash-screen-typography($typo-config);
 
     @include loglevel-display-theme($custom-app-theme-dark);
+    @include log-message-display-theme($custom-app-theme-dark);
 }
 
 // Custom Component Theming Section
@@ -51,3 +53,4 @@ $typo-config: mat-typography-config();
 @include splash-screen-typography($typo-config);
 
 @include loglevel-display-theme($custom-app-theme);
+@include log-message-display-theme($custom-app-theme);

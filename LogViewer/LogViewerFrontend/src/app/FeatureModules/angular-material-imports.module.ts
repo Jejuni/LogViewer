@@ -14,7 +14,8 @@ import {
   MatSelectModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTabsModule
 } from '@angular/material';
 import { CdkTreeModule } from '@angular/cdk/tree';
 
@@ -38,6 +39,7 @@ import { CdkTreeModule } from '@angular/cdk/tree';
     MatDatepickerModule,
     MatNativeDateModule,
     MatToolbarModule,
+    MatTabsModule
   ]
 })
 export class AngularMaterialImportsModule { }

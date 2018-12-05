@@ -1,5 +1,6 @@
 ﻿using LogViewer.Core.Data.Entities;
 using LogViewer.Core.Interfaces;
+using LogViewer.Extensions;
 using LogViewer.Filters;
 using LogViewer.ViewModels;
 using Microsoft.AspNetCore.Hosting;
@@ -45,7 +46,7 @@ namespace LogViewer.Controllers
             {
                 CurrentPage = request.Page,
                 TotalEntries = totalCount,
-                LogEntries = logEntries
+                LogEntries = logEntries.Select(x => x.ToViewModel())
             };
         }
 

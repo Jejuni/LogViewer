@@ -17,8 +17,20 @@
 }
 
 .json-token {
-    color: #49a1ff;
-    border: 1px solid #e1e1e8;
-    padding: 2px 3px;
+    //color: #49a1ff;
+    //border: 1px solid #e1e1e8;
+    padding: 0 3px;
     border-radius: 15px;
+    //line-height: 1.5em;
+    cursor: pointer;
+}
+
+.json-token:hover {
+    //box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); // z6 elevation
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12); // z4 elevation
+    background-color: rgba($color: #ffffff, $alpha: 0.1);
+}
+
+.json-token:hover:active {
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }

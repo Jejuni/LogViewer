@@ -11,15 +11,20 @@ import { LogEntryResponse } from '../Models/LogEntryResponse';
 import { LogFilters } from '../Models/LogFilters';
 import { Nullable } from '../Models/Nullable';
 import { LogSorting } from '../Models/LogSorting';
+import { ParsedJsonString } from '../Models/ParsedJsonString';
+import { StringJsonParserService } from './string-json-parser.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LogEntryTableDatasourceService extends DataSource<LogEntry> {
+export class LogEntryTableDatasourceService extends DataSource<LogEntry & ParsedJsonString> {
 
-  constructor(private logEntryService: LogInfoRetrieverService) {
+  constructor(
+    private logEntryService: LogInfoRetrieverService,
+    private jsonParseService: StringJsonParserService
+    ) {
     super();
-    this.subject$ = new BehaviorSubject<LogEntry[]>([]);
+    this.subject$ = new BehaviorSubject<(LogEntry & ParsedJsonString)[]>([]);
     this.logEntryEmitter$ = this.subject$.asObservable();
     this.currentLogFilters = LogFilters.getDefaultLogFilters();
     this.sortOptions = {
@@ -34,8 +39,10 @@ export class LogEntryTableDatasourceService extends DataSource<LogEntry> {
   private sorter: MatSort;
   private sortOptions: Nullable<LogSorting>;
   private currentLogFilters: LogFilters;
-  private subject$: BehaviorSubject<LogEntry[]>;
-  private logEntryEmitter$: Observable<LogEntry[]>;
+  // private subject$: BehaviorSubject<LogEntry[]>;
+  private subject$: BehaviorSubject<(LogEntry & ParsedJsonString)[]>;
+  private logEntryEmitter$: Observable<(LogEntry & ParsedJsonString)[]>;
+  // private logEntryEmitter$: Observable<LogEntry[]>;
   private combinedSubscriptions: Subscription | null;
   private httpSubscription: Subscription;
 
@@ -118,15 +125,26 @@ export class LogEntryTableDatasourceService extends DataSource<LogEntry> {
     if (!!this.httpSubscription) {
       this.httpSubscription.unsubscribe();
     }
-    this.httpSubscription = this.logEntryService.getLogEntries(logEntryRequest).subscribe(data => {
-      this.isLoadingResults = false;
-      this.resultsLength = data.totalEntries;
+    // this.httpSubscription = this.logEntryService.getLogEntries(logEntryRequest).subscribe(data => {
+    //   this.isLoadingResults = false;
+    //   this.resultsLength = data.totalEntries;
 
-      this.subject$.next(data.logEntries);
+    //   this.subject$.next(data.logEntries);
+    // });
+    this.httpSubscription = this.logEntryService.getLogEntries(logEntryRequest).pipe(
+      tap(x => {
+        this.isLoadingResults = false;
+        this.resultsLength = x.totalEntries;
+      }),
+      map(x => x.logEntries.map(inner => {
+            return { ...inner, ...this.jsonParseService.parseString(inner.message) };
+          }))
+    ).subscribe(data => {
+      this.subject$.next(data);
     });
   }
 
-  public connect(): Observable<LogEntry[]> {
+  public connect(): Observable<(LogEntry & ParsedJsonString)[]> {
     return this.logEntryEmitter$;
   }
 
