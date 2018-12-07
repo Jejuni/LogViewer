@@ -53,8 +53,8 @@ export class LogInfoRetrieverService {
    * Retrieves the friendly name of the current environment (Development, Staging, Production)
    * In case of an error a message is logged to the console and an empty string is returned
    */
-  public getHostringEnvName(): Observable<string> {
-    const url = `${this.baseUrl}/api/LogEntryData/GetHostringEnvironment`;
+  public getHostingEnvName(): Observable<string> {
+    const url = `${this.baseUrl}/api/LogEntryData/GetHostingEnvironment`;
     return this.http.get<EnvironmentNameResponse>(url).pipe(
       map(data => data.environmentName),
       catchError(err => {
