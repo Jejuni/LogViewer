@@ -51,6 +51,6 @@ namespace LogViewer.Controllers
         }
 
         [HttpGet("[action]")]
-        public ActionResult<EnvironmentNameResponse> GetHostringEnvironment() => new EnvironmentNameResponse { EnvironmentName = hostingEnvironment.EnvironmentName };
+        public ActionResult<EnvironmentNameResponse> GetHostingEnvironment() => new EnvironmentNameResponse { EnvironmentName = hostingEnvironment.EnvironmentName };
     }
 }

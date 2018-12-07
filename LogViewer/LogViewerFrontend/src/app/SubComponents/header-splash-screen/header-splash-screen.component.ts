@@ -14,7 +14,7 @@ export class HeaderSplashScreenComponent implements OnInit {
   public envName$: Observable<string>;
 
   ngOnInit() {
-    this.envName$ = this.logService.getHostringEnvName();
+    this.envName$ = this.logService.getHostingEnvName();
   }
 
 }
