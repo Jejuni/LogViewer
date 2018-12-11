@@ -30,12 +30,14 @@ export class TreeParserService {
       const node = new TreeNode();
       node.displayName = key;
 
-      if (!!value) {
+      if (value !== null && value !== undefined) {
         if (typeof value === 'object') {
           node.children = this.buildUpTree(value, level + 1);
         } else {
           node.potentialValue = value;
         }
+      } else {
+        node.potentialValue = 'NULL';
       }
 
       return acc.concat(node);
