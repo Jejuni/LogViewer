@@ -1,10 +1,15 @@
 <div class="message-flex-container">
   <div>
-    <ng-container *ngFor="let item of parsedValue.cleanedMessageStringArray; let idx = index">
+    <ng-container *ngFor="let item of displayArray; let idx = index">
       <span *ngIf="idx !== 0 && !item.isReplacementToken">&nbsp;</span>
       <span *ngIf="!item.isReplacementToken">{{item.messageString}}</span>
       <span class="json-token" *ngIf="item.isReplacementToken" (click)="$event.preventDefault(); $event.stopPropagation(); copyMessage(item.messageString)">{{item.messageString}}</span>
-      <span *ngIf="idx !== parsedValue.cleanedMessageStringArray.length - 1 && !item.isReplacementToken">&nbsp;</span>
+      <span *ngIf="idx !== displayArray.length - 1 && !item.isReplacementToken">&nbsp;</span>
     </ng-container>
+  </div>
+  <div class="json-button-container" *ngIf="isCutOff">
+    <button mat-icon-button (click)="$event.preventDefault(); $event.stopPropagation(); extendCutoff();">
+      <mat-icon>{{isExtended ? 'unfold_less' : 'unfold_more'}}</mat-icon>
+    </button>
   </div>
 </div>

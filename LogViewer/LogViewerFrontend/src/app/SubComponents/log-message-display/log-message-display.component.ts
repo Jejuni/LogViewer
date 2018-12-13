@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, ElementRef } from '@angular/core';
 import { StringJsonParserService } from 'src/app/Services/string-json-parser.service';
 import { ParsedJsonString } from 'src/app/Models/ParsedJsonString';
 import { JsonTokens } from 'src/app/Models/JsonTokens';
+import { CleanedMessageString } from 'src/app/Models/CleanedMessageString';
+import { trigger, transition, style, animate, state, query, stagger, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-log-message-display',
@@ -14,7 +16,48 @@ export class LogMessageDisplayComponent implements OnInit {
 
   @Input() public parsedValue: ParsedJsonString;
 
+  public displayArray: CleanedMessageString[];
+  public isCutOff = false;
+  public isExtended = false;
+
+  private cutoffAcummulatorArray: CleanedMessageString[] = [];
+  private maxDisplayLength = 250;
   ngOnInit() {
+    const maxLen = this.parsedValue.cleanedMessageStringArray.
+      filter(e => !e.isReplacementToken).
+      reduce((acc, curr) => acc += curr.messageString.length, 0);
+
+    if (maxLen <= this.maxDisplayLength) {
+      this.displayArray = this.parsedValue.cleanedMessageStringArray;
+      return;
+    }
+
+    this.isCutOff = true;
+    let lengthCounter = 0;
+    for (let i = 0; i < this.parsedValue.cleanedMessageStringArray.length; i++) {
+      const e = this.parsedValue.cleanedMessageStringArray[i];
+
+      if (e.isReplacementToken || lengthCounter + e.messageString.length <= this.maxDisplayLength) {
+        this.cutoffAcummulatorArray.push(e);
+        lengthCounter += e.isReplacementToken ? 0 : e.messageString.length;
+      } else {
+        this.cutoffAcummulatorArray.push({
+          isReplacementToken: false,
+          messageString: e.messageString.substr(0, this.maxDisplayLength - lengthCounter) + '...'
+        });
+        this.displayArray = this.cutoffAcummulatorArray;
+        break;
+      }
+    }
+  }
+
+  public extendCutoff(): void {
+    if (!this.isExtended) {
+      this.displayArray = this.parsedValue.cleanedMessageStringArray;
+    } else {
+      this.displayArray = this.cutoffAcummulatorArray;
+    }
+    this.isExtended = !this.isExtended;
   }
 
   public copyMessage(val: string): void {
