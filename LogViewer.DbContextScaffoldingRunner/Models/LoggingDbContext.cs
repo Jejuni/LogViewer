@@ -20,6 +20,8 @@ namespace LogViewer.DbContextScaffoldingRunner.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
+
             modelBuilder.Entity<Application>(entity =>
             {
                 entity.Property(e => e.Name)

@@ -4,6 +4,7 @@ using LogViewer.Core.Data.Models.Enums;
 using LogViewer.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -38,10 +39,11 @@ namespace LogViewer.Infrastructure.Data
                 logEntries = logEntries.Where(x => enumNames.Contains(x.LogLevel));
             }
 
-            logEntries = SetupQueryableWhereExpression(logEntries, dataFilter.MessageIncludes, nameof(LogEntry.Message), FilterStringOptions.Include);
-            logEntries = SetupQueryableWhereExpression(logEntries, dataFilter.MessageExcludes, nameof(LogEntry.Message), FilterStringOptions.Exclude);
-            logEntries = SetupQueryableWhereExpression(logEntries, dataFilter.LoggernameIncludes, nameof(LogEntry.Logger), FilterStringOptions.Include);
-            logEntries = SetupQueryableWhereExpression(logEntries, dataFilter.LoggernameExcludes, nameof(LogEntry.Logger), FilterStringOptions.Exclude);
+            logEntries = IsEmpty(dataFilter.MessageIncludes) ? logEntries : logEntries.Where(x => EF.Functions.Contains(x.Message, GetFullTextSearchString(dataFilter.MessageIncludes)));
+            logEntries = IsEmpty(dataFilter.MessageExcludes) ? logEntries : logEntries.Where(x => !EF.Functions.Contains(x.Message, GetFullTextSearchString(dataFilter.MessageExcludes)));
+
+            logEntries = SetupQueryableLikeExpression(logEntries, dataFilter.LoggernameIncludes, nameof(LogEntry.Logger), FilterStringOptions.Include);
+            logEntries = SetupQueryableLikeExpression(logEntries, dataFilter.LoggernameExcludes, nameof(LogEntry.Logger), FilterStringOptions.Exclude);
 
             if (sort != null)
             {
@@ -56,7 +58,6 @@ namespace LogViewer.Infrastructure.Data
             }
 
             long logEntriesTotalCount = await logEntries.LongCountAsync();
-
             //var test = logEntries.GroupBy(x => x.LogLevel).Select(x => new { LogLevel = x.Key, Count = x.LongCount() }).ToList();
 
             logEntries = logEntries.Include(x => x.Application);
@@ -68,17 +69,31 @@ namespace LogViewer.Infrastructure.Data
                 .ConfigureAwait(false), logEntriesTotalCount);
         }
 
-        private IQueryable<LogEntry> SetupQueryableWhereExpression(IQueryable<LogEntry> query, List<string> stringCompares, string propName, FilterStringOptions options)
+        private string GetFullTextSearchString(List<string> searchTerms)
+        {
+            if (IsEmpty(searchTerms)) throw new ArgumentException("Collection may not be null or empty.", nameof(searchTerms));
+
+            string fullTextString = "";
+            for (int i = 0; i < searchTerms.Count; i++)
+            {
+                string term = searchTerms[i];
+                fullTextString += $"\"{term}*\"" + (i == searchTerms.Count - 1 ? "" : " OR ");
+            }
+
+            return fullTextString;
+        }
+
+        private IQueryable<LogEntry> SetupQueryableLikeExpression(IQueryable<LogEntry> query, List<string> stringCompares, string propName, FilterStringOptions options)
         {
             // no includes / excludes => nothing to do
-            if (stringCompares == null || stringCompares.Count == 0)
+            if(IsEmpty(stringCompares))
                 return query;
 
             ParameterExpression eParam = Expression.Parameter(typeof(LogEntry), "x");
             MethodInfo method = typeof(string).GetMethod("Contains", new[] { typeof(string) }); // Comparing will be done with the string.Contains method
             List<MethodCallExpression> methodCalls = new List<MethodCallExpression>();
 
-            // at this point we possible have 1-n comparsions to do
+            // at this point we possibly have 1-n comparsions to do
             foreach (string str in stringCompares)
                 methodCalls.Add(Expression.Call(Expression.Property(eParam, propName), method, Expression.Constant(str)));
 
@@ -101,5 +116,7 @@ namespace LogViewer.Infrastructure.Data
             finalExpr = options == FilterStringOptions.Exclude ? Expression.Not(finalExpr) : finalExpr;
             return query.Where(Expression.Lambda<Func<LogEntry, bool>>(finalExpr, eParam));
         }
+
+        private bool IsEmpty<T>(IEnumerable<T> collection) => collection is null || collection.Count() == 0;
     }
 }

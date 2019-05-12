@@ -14,6 +14,6 @@ namespace LogViewer.DbContextScaffoldingRunner.Models
         public string Logger { get; set; }
         public string Stacktrace { get; set; }
 
-        public Application Application { get; set; }
+        public virtual Application Application { get; set; }
     }
 }

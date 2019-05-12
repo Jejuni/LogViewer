@@ -31,7 +31,7 @@ namespace LogViewer
             services.AddScoped<ILogEntryRepository, LogEntryRepository>();
             services.AddScoped<ILogEntryRetrievalService, LogEntryRetrievalService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(o =>
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(o =>
             {
                 o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 o.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local;

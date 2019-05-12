@@ -13,6 +13,6 @@ namespace LogViewer.DbContextScaffoldingRunner.Models
         public long Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<LogEntry> LogEntry { get; set; }
+        public virtual ICollection<LogEntry> LogEntry { get; set; }
     }
 }
