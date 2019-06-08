@@ -3,7 +3,8 @@ import { trigger, state, transition, style, animate } from '@angular/animations'
 import { LogEntryTableDatasourceService } from 'src/app/Services/log-entry-table-datasource.service';
 import { LogEntry } from 'src/app/Models/LogEntry';
 import { LogLevelStyleRetrieverService } from 'src/app/Services/log-level-style-retriever.service';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { DisplayService } from 'src/app/Services/display.service';
 import { ParsedJsonString } from 'src/app/Models/ParsedJsonString';
 
@@ -31,8 +32,8 @@ import { ParsedJsonString } from 'src/app/Models/ParsedJsonString';
   ]
 })
 export class LogEntryTableComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     public dataSource: LogEntryTableDatasourceService,

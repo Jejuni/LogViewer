@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { LogEntryTableDatasourceService } from 'src/app/Services/log-entry-table-datasource.service';
-import { MatButton } from '@angular/material';
+import { MatButton } from '@angular/material/button';
 import { DisplayService } from 'src/app/Services/display.service';
 
 @Component({
